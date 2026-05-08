@@ -1,0 +1,117 @@
+/* Menghilangkan default loading bar model-viewer */
+model-viewer::part(default-progress-bar) {
+    display: none;
+}
+
+/* STYLING HOTSPOT (Titik Penunjuk) */
+.hotspot {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: none;
+    background-color: #34D399; /* emerald-400 */
+    box-shadow: 0 0 10px rgba(16, 185, 129, 0.7);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    pointer-events: auto; /* Agar bisa diklik */
+    
+    /* PENTING: Mencegah hotspot terpotong jika berada di dalam model */
+    --min-hotspot-opacity: 0.1;
+    opacity: var(--min-hotspot-opacity);
+}
+
+.hotspot:not(.hidden) {
+    opacity: 1;
+}
+
+/* Kotak Teks Melayang (Glassmorphism Premium) */
+.hotspot-text-box {
+    position: absolute;
+    bottom: 30px; /* Jarak dari titik penunjuk */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 240px;
+    max-width: 280px;
+    padding: 18px;
+    
+    background-color: rgba(255, 255, 255, 0.1); /* White alpha */
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    
+    z-index: 100;
+}
+
+/* Saat hotspot aktif (tidak tersembunyi), kotak teks muncul */
+.hotspot:not(.hidden) .hotspot-text-box {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(-5px);
+}
+
+/* STYLING CHECKBOX PREMIUM (Modern & Interaktif) */
+.premium-checkbox {
+    display: flex;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+}
+
+.premium-checkbox input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkmark {
+    height: 20px;
+    width: 20px;
+    background-color: rgba(255, 255, 255, 0.15);
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    position: relative;
+    transition: all 0.2s ease;
+}
+
+/* Saat checkbox diklik/dicentang */
+.premium-checkbox input:checked ~ .checkmark {
+    background-color: #10B981; /* emerald-500 */
+    border-color: #34D399;
+    box-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
+}
+
+/* Icon Checkmark di dalam kotak */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+    left: 7px;
+    top: 3px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2.5px 2.5px 0;
+    transform: rotate(45deg);
+}
+
+.premium-checkbox input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Tweak Modal saat Muncul */
+#final-modal.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+#final-modal.show .scale-90 {
+    transform: scale(1);
+}
